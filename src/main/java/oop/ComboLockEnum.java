@@ -9,7 +9,7 @@ package oop;
  * turning Right (clockwise), then Left, and finally Right.
  */
 
-public class ComboLock
+public class ComboLockEnum
 {
 
     // Instance variables (fields)
@@ -18,40 +18,40 @@ public class ComboLock
     private int secret1;
     private int secret2;
     private int secret3;
-    private int state;
+    private LockStateEnum state;
 
     // constructor
     // initialize/set the correct combination code for the lock
     //TODO - constructor to initialize lock
-    public ComboLock(int secret1, int secret2, int secret3)
+    public ComboLockEnum(int secret1, int secret2, int secret3)
     {
         this.secret1 = secret1;
         this.secret2 = secret2;
         this.secret3 = secret3;
-        this.state = 0;
+        this.state = LockStateEnum.NONE_CORRECT;
     }
 
     public void reset()
     {
         //TODO reset the lock to start state
-        this.state = 0;
+        this.state = LockStateEnum.NONE_CORRECT;
     }
 
     public void turnRight(int number)
     {
         //TODO how will turning right to the number
         // change the state of the lock?
-        if (this.state == 0 && number == secret1)
+        if (this.state == LockStateEnum.NONE_CORRECT && number == secret1)
         {
-            this.state = 1;
+            this.state = LockStateEnum.FIRST_CORRECT;
         }
-        else if (this.state == 2 && number == secret3)
+        else if (this.state == LockStateEnum.SECOND_CORRECT && number == secret3)
         {
-            this.state = 3;
+            this.state = LockStateEnum.ALL_CORRECT;
         }
         else
         {
-            this.state = 0;
+            this.state = LockStateEnum.NONE_CORRECT;
         }
 
 
@@ -61,13 +61,13 @@ public class ComboLock
     {
         //TODO how will turning right to the number
         // change the state of the lock?
-        if (state == 1 && number == secret2)
+        if (state == LockStateEnum.FIRST_CORRECT && number == secret2)
         {
-            state = 2;
+            state = LockStateEnum.SECOND_CORRECT;
         }
         else
         {
-            state = 0;
+            state = LockStateEnum.NONE_CORRECT;
         }
 
     }
@@ -75,11 +75,11 @@ public class ComboLock
     public boolean open()
     {
         //TODO logic for testing if lock is open
-        if (this.state == 3)
+        if (this.state == LockStateEnum.ALL_CORRECT)
             return true;
         else
             return false;
-//        return this.state == 3;
+//        return this.state == LockStateEnum.ALL_CORRECT;
     }
 
     //TODO
